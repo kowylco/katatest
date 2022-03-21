@@ -100,7 +100,7 @@ class Numbers {
             numberTwo = this.parseRoman(inData[2]);
             isRoman = true;
         }
-        if (numberOne > 10 || numberTwo >10) {
+        if (numberOne > 10 || numberTwo >10 || numberOne == 0 || numberTwo == 0) {
             throw new Exception("Калькулятор должен принимать на вход числа от 1 до 10 включительно, не более");
         }
     }
@@ -123,7 +123,7 @@ class Numbers {
         RomanNumber[] romanNumbers = RomanNumber.values();
         int romanNumbersLength = romanNumbers.length - 1;
         StringBuilder resultRoman = new StringBuilder();
-        while (inInt > 0 && romanNumbersLength > 0) {
+        while (inInt > 0 && romanNumbersLength >= 0) {
             if (romanNumbers[romanNumbersLength].getValue() <= inInt) {
                 resultRoman.append(romanNumbers[romanNumbersLength]);
                 inInt -= romanNumbers[romanNumbersLength].getValue();
