@@ -24,6 +24,7 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        inputStr = inputStr.replace(" ","");
         String operation = Operation.getOperation(inputStr);
         inputArray[0] = inputStr.substring(0,inputStr.indexOf(operation));
         inputArray[1] = operation;
@@ -45,14 +46,8 @@ class Calc {
             default -> throw new IllegalStateException("Unexpected value: " + inputArray[1]);
         };
 
-        if (numbers.isRoman) {
-            if (intResult < 0) {
-                throw new Exception("в римской системе нет отрицательных чисел");
-            } else if (intResult == 0) {
-                return "0";
-            }
-            return Numbers.intToRoman(intResult);
-        } else return Integer.toString(intResult);
+        if (numbers.isRoman) return Numbers.intToRoman(intResult);
+        else return Integer.toString(intResult);
     }
 }
 
@@ -119,7 +114,8 @@ class Numbers {
             default -> throw new IllegalStateException("Unexpected value: " + inStr);
         };
     }
-    public static String intToRoman(int inInt) {
+    public static String intToRoman(int inInt) throws Exception {
+        if (inInt <= 0) throw new Exception("в римской системе нет отрицательных чисел (нуля тоже)");
         RomanNumber[] romanNumbers = RomanNumber.values();
         int romanNumbersLength = romanNumbers.length - 1;
         StringBuilder resultRoman = new StringBuilder();
